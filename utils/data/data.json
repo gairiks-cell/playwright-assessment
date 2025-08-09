@@ -1,0 +1,15 @@
+{
+    "URL": "https://demo.playwright.dev/todomvc/#/",
+    "inputBox": ".new-todo",
+    "todoTitle": "[data-testid='todo-title']",
+    "checkBox": ".toggle",
+    "deleteButton": ".destroy",
+    "completedLink": "a[href='#/completed']",
+    "itemCount": "[data-testid='todo-count']",
+    "todoText": "My Todo List📌",
+    "task1": "Task 1",
+    "task2": "Task 2",
+    "task3": "Task 3",
+    "deleteText": "Delete Me",
+    "completeText": "Complete Me"
+}
