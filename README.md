@@ -1,4 +1,4 @@
-# Playwright Assessment (TypeScript)
+# Playwright Assessment
 
 This repository contains automated tests written in **Playwright** with **TypeScript**.
 
