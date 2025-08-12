@@ -31,9 +31,7 @@ test.describe('TODO App - Test Suite', () => {
     console.log('✅ All tests completed in TODO suite.');
   });
 
-  /**
-   * Verify a todo item can be added successfully
-   */
+
   test('should add a new TODO item', async ({ page }) => {
     await todo.addTodo(baseTodoText);
     const items = await todo.getTodoItems();
@@ -46,9 +44,7 @@ test.describe('TODO App - Test Suite', () => {
     await page.screenshot({ path: screenshotPath, fullPage: true });
   });
 
-  /**
-   * Check duplicate todos are accepted
-   */
+
   test('should allow duplicate todos', async () => {
     await todo.addTodo(baseTodoText);
     await todo.addTodo(baseTodoText);
@@ -57,18 +53,14 @@ test.describe('TODO App - Test Suite', () => {
     expect(duplicateCount).toBeGreaterThan(1);
   });
 
-  /**
-   * Ensure empty todos are not added
-   */
+
   test('should not allow adding empty todo item', async () => {
     await todo.addTodo('');
     const items = await todo.getTodoItems();
     expect(items.length).toBe(0);
   });
 
-  /**
-   * Validate support for long todo text entries
-   */
+
   test('should allow todo longer than 200 characters', async () => {
     const longText = baseTodoText.repeat(20);
     await todo.addTodo(longText);
@@ -77,9 +69,7 @@ test.describe('TODO App - Test Suite', () => {
     expect(found).toBe(true);
   });
   
-  /**
-   * Test deletion of a todo item
-   */
+
   test('should delete a todo item', async () => {
     const deleteText = TestData('deleteText') || 'Delete Me';
     await todo.addTodo(deleteText);
@@ -88,9 +78,7 @@ test.describe('TODO App - Test Suite', () => {
     expect(items).not.toContain(deleteText);
   });
 
-  /**
-   * Test marking a todo as complete
-   */
+
   test('should mark a todo item as completed', async () => {
     const completeText = TestData('completeText') || 'Complete Me';
     await todo.addTodo(completeText);
@@ -100,9 +88,7 @@ test.describe('TODO App - Test Suite', () => {
     expect(completedItems).toContain(completeText);
   });
 
-  /**
-   * Verify item count updates correctly after completion
-   */
+ 
   test('should update item count when completing todos', async () => {
     await todo.addTodo(TestData('task1'));
     await todo.addTodo(TestData('task2'));
@@ -116,9 +102,7 @@ test.describe('TODO App - Test Suite', () => {
     expect(count).toContain('1');
   });
 
-  /**
-   * Ensure multiple todos can be added and deleted
-   */
+ 
   test('should add 3 todos and delete all', async () => {
     await todo.addTodo(TestData('task1'));
     await todo.addTodo(TestData('task2'));
@@ -136,9 +120,7 @@ test.describe('TODO App - Test Suite', () => {
     expect(countText).toContain('0');
   });
 
-  /**
-   * Verify that the page loads quickly and displays main UI
-   */
+ 
   test('should load the TODO app and input within 5 seconds', async ({ page }) => {
     const start = Date.now();
     await todo.goto();
