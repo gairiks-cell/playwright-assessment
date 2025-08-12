@@ -76,9 +76,9 @@ test.describe('TODO App - Test Suite', () => {
     const found = items.some(i => i.startsWith(baseTodoText) && i.length >= 200);
     expect(found).toBe(true);
   });
-
+  
   /**
-   * Test deletion of a todo
+   * Test deletion of a todo item
    */
   test('should delete a todo item', async () => {
     const deleteText = TestData('deleteText') || 'Delete Me';
@@ -119,7 +119,7 @@ test.describe('TODO App - Test Suite', () => {
   /**
    * Ensure multiple todos can be added and deleted
    */
-  test.only('should add 3 todos and delete all', async () => {
+  test('should add 3 todos and delete all', async () => {
     await todo.addTodo(TestData('task1'));
     await todo.addTodo(TestData('task2'));
     await todo.addTodo(TestData('task3'));
