@@ -1,4 +1,4 @@
-name: Executing Playwright Test Cases
+name: TODO APP Test Runner
 
 on:
   push:
