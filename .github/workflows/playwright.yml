@@ -1,0 +1,56 @@
+name: Executing Playwright Test Cases
+
+on:
+  push:
+    branches:
+      - main
+
+  repository_dispatch:
+    types: [TODO-App-Test-Runner]
+
+jobs:
+  e2e-tests:
+    name: Playwright Test Case Runner
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Playwright repo
+        uses: actions/checkout@v4
+
+      - name: Checkout app repo
+        uses: actions/checkout@v4
+        with:
+          repository: gairiks-cell/my-todo-app
+          path: my-todo-app
+          token: ${{ secrets.MY_CASES }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install app dependencies
+        working-directory: my-todo-app
+        run: npm ci
+
+      - name: Start app
+        working-directory: my-todo-app
+        run: |
+          npm start & 
+          npx wait-on http://localhost:3000
+
+      - name: Install Playwright test dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report

@@ -1,0 +1,21 @@
+{
+  "name": "playwright-assessment",
+  "version": "1.0.0",
+  "description": "Playwright automation project with smoke and regression tagging",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:smoke": "npx playwright test --grep @smoke",
+    "test:regression": "npx playwright test --grep @regression",
+    "test:headed": "npx playwright test --headed",
+    "test:all": "npx playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.2",
+    "@types/node": "20.19.14",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "lts": "^2.0.0"
+  }
+}

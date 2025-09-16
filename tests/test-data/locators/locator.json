@@ -1,0 +1,15 @@
+{
+  "inputBox": "input.todo-input__field",
+  "todoTitle": "[data-testid='todo-title']",
+  "checkBox": ".toggle",
+  "deleteButton": ".destroy",
+  "completedLink": "button.selected",
+  "itemCount": "li[data-testid='todo-item']:not(.completed)",
+  "todoText": "My Todo List📌",
+  "editedTodoText": "New Todo List📌",
+  "task1": "Task 1",
+  "task2": "Task 2",
+  "task3": "Task 3",
+  "deleteText": "Delete Me",
+  "completeText": "Complete Me"
+}
