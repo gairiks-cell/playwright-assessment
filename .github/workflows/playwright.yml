@@ -9,31 +9,15 @@ on:
     types: [TODO-App-Test-Runner]
 
 jobs:
-  checkout-code:
-    name: Checkout Repos
+  e2e-tests:
+    name: Playwright Test Case Runner
     runs-on: ubuntu-latest
-    outputs:
-      app-path: my-todo-app
+
     steps:
       - name: Checkout Playwright repo
         uses: actions/checkout@v4
 
-      - name: Checkout App repo
-        uses: actions/checkout@v4
-        with:
-          repository: gairiks-cell/my-todo-app
-          path: my-todo-app
-          token: ${{ secrets.MY_CASES }}
-
-  setup-app:
-    name: Install & Start App
-    needs: checkout-code
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Playwright repo
-        uses: actions/checkout@v4
-
-      - name: Checkout App repo
+      - name: Checkout app repo
         uses: actions/checkout@v4
         with:
           repository: gairiks-cell/my-todo-app
@@ -45,37 +29,17 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install App dependencies
+      - name: Install app dependencies
         working-directory: my-todo-app
         run: npm ci
 
-      - name: Start App
+      - name: Start app
         working-directory: my-todo-app
         run: |
-          npm start &
+          npm start & 
           npx wait-on http://localhost:3000
 
-  run-tests:
-    name: Run Playwright Tests
-    needs: setup-app
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Playwright repo
-        uses: actions/checkout@v4
-
-      - name: Checkout App repo
-        uses: actions/checkout@v4
-        with:
-          repository: gairiks-cell/my-todo-app
-          path: my-todo-app
-          token: ${{ secrets.MY_CASES }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install test dependencies
+      - name: Install Playwright test dependencies
         run: npm ci
 
       - name: Install Playwright browsers
@@ -84,17 +48,9 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
 
-  upload-report:
-    name: Upload Test Report
-    needs: run-tests
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Playwright repo
-        uses: actions/checkout@v4
-
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: playwright-report
           path: playwright-report
